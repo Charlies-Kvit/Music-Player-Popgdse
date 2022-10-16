@@ -1,0 +1,5 @@
+PyQt5
+mutagen
+validate_email
+telebot
+PyQt5-tools
