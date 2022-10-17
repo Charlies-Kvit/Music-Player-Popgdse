@@ -32,9 +32,13 @@ class MediaPlayer(QMainWindow, Ui_MainWindow):
         self.support_btn.clicked.connect(self.support)
         self.savePlaylist_btn.clicked.connect(self.save_playlist)
         self.replay_btn.clicked.connect(self.replay)
+        self.random_btn.clicked.connect(self.random)
 
     def change_time(self):
-        self.player.setPosition(self.horizontalSlider.sliderPosition() * 1000)
+        if bool(self.data):
+            self.player.setPosition(self.horizontalSlider.sliderPosition() * 1000)
+        else:
+            self.horizontalSlider.setSliderPosition(0)
 
     def download_playlist(self):
         try:
@@ -180,6 +184,19 @@ class MediaPlayer(QMainWindow, Ui_MainWindow):
                     self.replay_btn.setIcon(QIcon('contents/restart.png'))
             except Exception:
                 pass
+
+    def random(self):
+        if bool(self.data):
+            if self.play_mod != 4:
+                self.playlist.setPlaybackMode(4)
+                self.play_mod = 4
+                self.random_btn.setIcon(QIcon('contents/random2.png'))
+                self.replay_btn.setIcon(QIcon('contents/restart.png'))
+            else:
+                self.play_mod = 2
+                self.playlist.setPlaybackMode(2)
+                self.replay_btn.setIcon(QIcon('contents/restart.png'))
+                self.random_btn.setIcon(QIcon('contents/random.png'))
     
     def support(self):
         self.support = Support()
