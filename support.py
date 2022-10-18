@@ -1,9 +1,8 @@
-import sys
 import telebot
 
 from support_interface import Ui_Form
 from PyQt5.QtWidgets import QWidget
-from check_mail import check
+from validate_email import validate_email
 
 
 class Support(QWidget, Ui_Form):
@@ -23,7 +22,7 @@ class Support(QWidget, Ui_Form):
             if not bool(mail):
                 mail = str(None)
             else:
-                flag = check(mail)
+                flag = Support.check(self, mail)
                 if not flag:
                     self.label_2.setText("Такой почты нету!")
                     raise TypeError
@@ -43,8 +42,12 @@ class Support(QWidget, Ui_Form):
             self.label_3.hide()
             self.okButton.show()
             self.messageLabel.show()
-        except Exception:
+        except Exception as error:
             pass
+    
+    def check(self, mail):
+        is_valid = validate_email(mail)
+        return is_valid
 
     def exit(self):
         self.close()

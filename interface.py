@@ -117,7 +117,7 @@ class Ui_MainWindow(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "Music Popgdse"))
         self.download_btn.setText(_translate("MainWindow", "Открыть файл"))
-        self.downloadCatalog_btn.setText(_translate("MainWindow", "Окрыть плейлист"))
+        self.downloadCatalog_btn.setText(_translate("MainWindow", "Окрыть папку"))
         self.savePlaylist_btn.setText(_translate("MainWindow", "Сохранить плейлист"))
         self.playlists.setText(_translate("MainWindow", "Плейлисты"))
         self.support_btn.setText(_translate("MainWindow", "Поддержка"))

@@ -14,7 +14,7 @@ class MediaPlayer(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
-        self.data, self.index, self.play_mod = [], 0, 2
+        self.data, self.play_mod = [], 2
         self.player = QMediaPlayer(self)
         self.playlist = QMediaPlaylist(self)
         self.player.setPlaylist(self.playlist)
@@ -93,12 +93,12 @@ class MediaPlayer(QMainWindow, Ui_MainWindow):
 
     def play_music(self):
         music = self.listWidget.currentRow()
-        self.index = music
-        self.playlist.setCurrentIndex(music)
-        self.player.play()
-        self.load_music = True
-        self.player_music = True
-        self.len_music()
+        if not self.playlist.currentIndex() == music:
+            self.playlist.setCurrentIndex(music)
+            self.player.play()
+            self.load_music = True
+            self.player_music = True
+            self.len_music()
 
     def stop_music(self):
         self.player.stop()
@@ -107,7 +107,6 @@ class MediaPlayer(QMainWindow, Ui_MainWindow):
     def len_music(self):
         music = MP3(self.data[self.playlist.currentIndex()])
         self.listWidget.setCurrentRow(self.playlist.currentIndex())
-        self.index += self.playlist.currentIndex()
         minutes = int((music.info.length - music.info.length % 60) / 60)
         seconds = int(music.info.length % 60)
         self.horizontalSlider.setMaximum(int(music.info.length))
@@ -130,7 +129,7 @@ class MediaPlayer(QMainWindow, Ui_MainWindow):
             else:
                 if not self.load_music:
                     try:
-                        self.playlist.setCurrentIndex(self.index)
+                        self.playlist.setCurrentIndex(0)
                         self.load_music = True
                         self.player.play()
                         self.player_music = True
@@ -140,28 +139,28 @@ class MediaPlayer(QMainWindow, Ui_MainWindow):
                 else:
                     self.player.play()
                     self.player_music = True
-            self.listWidget.setCurrentRow(self.index)
+            self.listWidget.setCurrentRow(self.playlist.currentIndex())
 
     def run_back(self):
         if bool(self.data):
-            if self.index - 1 < 0:
-                self.index = len(self.data) - 1
+            if self.playlist.currentIndex() - 1 < 0:
+                index = len(self.data) - 1
             else:
-                self.index -= 1
-            self.playlist.setCurrentIndex(self.index)
+                index = self.playlist.currentIndex() - 1
+            self.playlist.setCurrentIndex(index)
             self.player.play()
-            self.listWidget.setCurrentRow(self.index)
+            self.listWidget.setCurrentRow(index)
             self.len_music()
 
     def run_forward(self):
         if bool(self.data):
-            if self.index + 1 > len(self.data) - 1:
-                self.index = 0
+            if self.playlist.currentIndex() + 1 > len(self.data) - 1:
+                index = 0
             else:
-                self.index += 1
+                index = self.playlist.currentIndex() + 1
             self.playlist.next()
             self.player.play()
-            self.listWidget.setCurrentRow(self.index)
+            self.listWidget.setCurrentRow(index)
             self.len_music()
 
     def save_playlist(self):
