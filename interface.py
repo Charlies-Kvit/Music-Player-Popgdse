@@ -30,6 +30,10 @@ class Ui_MainWindow(object):
         self.verticalLayout_2.addWidget(self.download_btn)
         self.downloadCatalog_btn = QtWidgets.QPushButton(self.widget)
         self.downloadCatalog_btn.setObjectName("downloadCatalog_btn")
+
+        self.openYandexMusic_btn = QtWidgets.QPushButton(self.widget)
+        self.openYandexMusic_btn.setObjectName("openYandexMusic_btn")
+
         self.verticalLayout_2.addWidget(self.downloadCatalog_btn)
         self.savePlaylist_btn = QtWidgets.QPushButton(self.widget)
         self.savePlaylist_btn.setObjectName("savePlaylist_btn")
@@ -115,11 +119,14 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "Music Popgdse"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "MusicPlayer"))
         self.download_btn.setText(_translate("MainWindow", "Открыть файл"))
         self.downloadCatalog_btn.setText(_translate("MainWindow", "Окрыть папку"))
         self.savePlaylist_btn.setText(_translate("MainWindow", "Сохранить плейлист"))
         self.playlists.setText(_translate("MainWindow", "Плейлисты"))
+
+        self.openYandexMusic_btn.setText(_translate("MainWindow", "YandexMusic"))
+
         self.support_btn.setText(_translate("MainWindow", "Поддержка"))
         self.timePlaying.setText(_translate("MainWindow", "00:00"))
         self.lenTimeMusic.setText(_translate("MainWindow", "00:00"))
